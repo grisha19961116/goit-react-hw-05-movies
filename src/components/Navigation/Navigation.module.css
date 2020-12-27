@@ -1,0 +1,11 @@
+.wrapper__button {
+  background-color: rgb(192, 189, 189);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+}
+div {
+  background-color: rgb(246, 217, 232);
+}
