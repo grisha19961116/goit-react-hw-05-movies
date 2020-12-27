@@ -11,11 +11,19 @@ const AsyncComponentReview = lazy(() =>
   import('../Review/Review' /* webpackChunkName: "Review" */),
 );
 
-const DetailsMovie = () => {
+const DetailsMovie = ({ lastUrl }) => {
   const id = useRouteMatch();
   const [DataFetchDetail, setDataFetchDetail] = useState([]);
-  console.log(useRouteMatch());
   const currentId = Number(id.params.id);
+  const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    if (lastUrl === '' || lastUrl === undefined) {
+      return;
+    }
+    setUrl(lastUrl);
+  }, [lastUrl]);
+  console.log(url, `right prev path`);
   useEffect(() => {
     const getDetailReqAsync = async () => {
       try {
@@ -86,6 +94,9 @@ const DetailsMovie = () => {
                   id="1"
                   onClick={e => handleCastAndReview(e)}
                   className={s.link}
+                  activeStyle={
+                    idLinksCheck === 1 ? { color: 'red' } : { color: 'blue' }
+                  }
                   to={`${id.url}`}
                 >
                   Cast
@@ -96,6 +107,9 @@ const DetailsMovie = () => {
                   id="2"
                   onClick={e => handleCastAndReview(e)}
                   className={s.link}
+                  activeStyle={
+                    idLinksCheck === 2 ? { color: 'red' } : { color: 'blue' }
+                  }
                   to={`${id.url}`}
                 >
                   Reviews
@@ -106,22 +120,34 @@ const DetailsMovie = () => {
         </>
       )}
 
-      {!genres ? (
-        <div className={s.warning}>
-          <h1 className={s.warning__h1}>
-            We do not have details information about this film
-            {<Button textArea={`back for prev list`} to="/movies/" />}
-          </h1>
-        </div>
-      ) : (
-        <Button textArea={`back for prev list`} to="/movies/" />
-      )}
       <Suspense>
         <Route exact path={`/movies/:id`}>
           {idLinksCheck === 1 ? <AsyncComponentCast id={imdb_id} /> : null}
           {idLinksCheck === 2 ? <AsyncComponentReview id={id} /> : null}
         </Route>
       </Suspense>
+
+      {!genres ? (
+        <div className={s.warning}>
+          <h1 className={s.warning__h1}>
+            We do not have details information about this film
+            {
+              <>
+                <tr></tr>
+                <Button
+                  textArea={`back for prev list`}
+                  to={url === '' ? '/movies/' : url}
+                />
+              </>
+            }
+          </h1>
+        </div>
+      ) : (
+        <Button
+          textArea={`back for prev list`}
+          to={url === '' ? '/movies/' : url}
+        />
+      )}
     </>
   );
 };

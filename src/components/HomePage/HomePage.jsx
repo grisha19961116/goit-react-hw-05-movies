@@ -1,10 +1,14 @@
 import s from './HomePage.module.css';
 import { useState, useEffect } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import List from '../List/List';
 import Navigation from '../Navigation/Navigation';
 
-const HomePage = () => {
+const HomePage = ({ handleUrl }) => {
   const [saveQuery, setSaveQuery] = useState('');
+
+  const { url } = useRouteMatch();
+  handleUrl(url);
 
   useEffect(() => {
     const getQuery = localStorage.getItem('query');

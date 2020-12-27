@@ -8,7 +8,7 @@ img {
 .detail_h2 {
   display: block;
   width: 70%;
-  font-size: 90px;
+  font-size: 50px;
   color: purple;
   padding-left: 120px;
   text-align: start;
@@ -16,7 +16,7 @@ img {
 .detail_h4 {
   display: block;
   width: 100%;
-  font-size: 50px;
+  font-size: 30px;
   color: rgb(185, 78, 185);
   padding-left: 120px;
   text-align: start;
@@ -24,7 +24,7 @@ img {
 .detail_h3 {
   display: block;
   width: 100%;
-  font-size: 50px;
+  font-size: 30px;
   color: rgb(143, 46, 143);
   padding-left: 120px;
   text-align: start;
@@ -34,7 +34,7 @@ img {
   align-items: center;
   justify-content: start;
   flex-wrap: wrap;
-  padding: 50px;
+  padding: 10px;
 }
 ul {
   list-style: none;
@@ -44,14 +44,14 @@ ul {
 }
 li {
   width: 10%;
-  height: 80px;
-  font-size: 60px;
+  height: auto;
+  font-size: 40px;
   color: rgb(240, 140, 240);
 }
 .detail_h3_list {
   display: block;
   width: 100%;
-  font-size: 80px;
+  font-size: 40px;
   color: rgb(177, 36, 177);
   padding-left: 120px;
   text-align: center;
@@ -64,8 +64,9 @@ span {
   width: 40%;
   margin-right: 3%;
   text-align: center;
-  color: royalblue;
-  font-size: 90px;
+  font-size: 60px;
+  text-decoration: underline;
+  text-decoration-color: blue;
 }
 .link {
   text-decoration: none;
@@ -83,7 +84,7 @@ span {
   top: 400px;
   display: block;
   width: 100%;
-  font-size: 90px;
-  color: rgb(177, 36, 177);
+  font-size: 30px;
+  color: rgb(90, 28, 90);
   text-align: center;
 }

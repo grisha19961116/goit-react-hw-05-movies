@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import ListItem from '../ListItem/ListItem.jsx';
 
-const List = ({ baseUrl, flagTrend }) => {
+const List = ({ baseUrl, flagTrend, flagHome }) => {
   const [dataFetchTrend, setDataFetchTrend] = useState([]);
 
   useEffect(() => {

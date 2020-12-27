@@ -1,10 +1,14 @@
 import './MoviesPage.module.css';
 import s from './MoviesPage.module.css';
 import { useState, useEffect } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import List from '../List/List';
 import Button from '../Button/Button';
 
-function MoviesPage() {
+function MoviesPage({ handleUrl }) {
+  const { url } = useRouteMatch();
+  handleUrl(url);
+
   const [saveValue, setSaveValue] = useState('');
 
   useEffect(() => {

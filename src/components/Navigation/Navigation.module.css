@@ -3,15 +3,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 200px;
+  width: 80%;
+  margin: 0 auto;
+  height: 100px;
+  border-radius: 3%;
 }
 div {
   background-color: rgb(241, 181, 212);
-}
-.wrapper__button {
-  background-color: rgb(236, 169, 204);
-  width: 80%;
-  margin: 0 auto;
-  border-radius: 3%;
 }
