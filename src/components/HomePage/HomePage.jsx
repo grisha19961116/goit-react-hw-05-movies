@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <>
       <Navigation />
-      <List baseUrl={baseUrl} />
+      <List baseUrl={baseUrl} flagTrend={true} />
     </>
   );
 };
