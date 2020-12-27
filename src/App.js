@@ -1,28 +1,37 @@
-import { useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import s from './App.module.css';
-import api from './API/api.js';
-import HomePage from './components/HomePage/HomePage';
-import MoviesPage from './components/MoviesPage/MoviesPage';
-import DetailsMovie from './components/DetailsMovie/DetailsMovie';
+
+const AsyncComponentHomePage = lazy(() =>
+  import('./components/HomePage/HomePage' /* webpackChunkName: "HomePage" */),
+);
+const AsyncComponentMoviesPage = lazy(() =>
+  import(
+    './components/MoviesPage/MoviesPage' /* webpackChunkName: "MoviesPage" */
+  ),
+);
+const AsyncComponentDetailsMovie = lazy(() =>
+  import(
+    './components/DetailsMovie/DetailsMovie' /* webpackChunkName: "DetailsMovie" */
+  ),
+);
 
 function App() {
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <HomePage />
+            <AsyncComponentHomePage />
           </Route>
           <Route exact path="/movies">
-            <MoviesPage />
+            <AsyncComponentMoviesPage />
           </Route>
           <Route exact path="/movies/:id">
-            <DetailsMovie />
+            <AsyncComponentDetailsMovie />
           </Route>
         </Switch>
       </BrowserRouter>
-    </>
+    </Suspense>
   );
 }
 

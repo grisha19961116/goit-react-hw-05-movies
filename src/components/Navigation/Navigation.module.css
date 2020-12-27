@@ -7,5 +7,11 @@
   height: 200px;
 }
 div {
-  background-color: rgb(246, 217, 232);
+  background-color: rgb(241, 181, 212);
+}
+.wrapper__button {
+  background-color: rgb(236, 169, 204);
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 3%;
 }

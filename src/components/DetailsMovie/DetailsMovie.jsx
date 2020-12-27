@@ -1,16 +1,20 @@
 import s from './DetailsMovie.module.css';
 import api from '../../API/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouteMatch, NavLink, Route } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
-import Review from '../Review/Review';
-import Cast from '../Cast/Cast.jsx';
-console.log(Cast, Review, `rrrrr`);
+import Button from '../Button/Button';
+const AsyncComponentCast = lazy(() =>
+  import('../Cast/Cast.jsx' /* webpackChunkName: "Cast" */),
+);
+const AsyncComponentReview = lazy(() =>
+  import('../Review/Review' /* webpackChunkName: "Review" */),
+);
 
 const DetailsMovie = () => {
   const id = useRouteMatch();
   const [DataFetchDetail, setDataFetchDetail] = useState([]);
-  console.log(id.url);
+  console.log(useRouteMatch());
   const currentId = Number(id.params.id);
   useEffect(() => {
     const getDetailReqAsync = async () => {
@@ -41,7 +45,6 @@ const DetailsMovie = () => {
     setIdLinksCheck(id);
   };
 
-  console.log(DataFetchDetail);
   const {
     genres,
     backdrop_path,
@@ -54,9 +57,9 @@ const DetailsMovie = () => {
 
   return (
     <>
+      <Navigation />
       {genres && (
         <>
-          <Navigation />
           <div className={s.detail__wrapper}>
             <img
               alt="s"
@@ -102,19 +105,23 @@ const DetailsMovie = () => {
           </div>
         </>
       )}
-      {!genres && (
+
+      {!genres ? (
         <div className={s.warning}>
-          <Navigation />
           <h1 className={s.warning__h1}>
-            We do not have details information about this film{' '}
+            We do not have details information about this film
+            {<Button textArea={`back for prev list`} to="/movies/" />}
           </h1>
         </div>
+      ) : (
+        <Button textArea={`back for prev list`} to="/movies/" />
       )}
-
-      <Route exact path={`/movies/:id`}>
-        {idLinksCheck === 1 ? <Cast id={imdb_id} /> : null}
-        {idLinksCheck === 2 ? <Review id={id} /> : null}
-      </Route>
+      <Suspense>
+        <Route exact path={`/movies/:id`}>
+          {idLinksCheck === 1 ? <AsyncComponentCast id={imdb_id} /> : null}
+          {idLinksCheck === 2 ? <AsyncComponentReview id={id} /> : null}
+        </Route>
+      </Suspense>
     </>
   );
 };

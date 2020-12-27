@@ -2,14 +2,24 @@ import './MoviesPage.module.css';
 import s from './MoviesPage.module.css';
 import { useState, useEffect } from 'react';
 import List from '../List/List';
+import Button from '../Button/Button';
 
 function MoviesPage() {
   const [saveValue, setSaveValue] = useState('');
+
+  useEffect(() => {
+    const getQuery = localStorage.getItem('query');
+    if (getQuery === null) {
+      return;
+    }
+    setSaveValue(getQuery);
+  }, []);
 
   const handlerSubmit = e => {
     console.log(e);
     e.preventDefault();
     const query = e.target.lastChild.value.toLowerCase().trim();
+    localStorage.setItem('query', query);
     setSaveValue(query);
   };
 
@@ -33,6 +43,7 @@ function MoviesPage() {
           />
         </form>
       </header>
+      <Button textArea="back on Home Page" to="/" />
       {saveValue !== '' ? (
         <List baseUrl={rightRequest} />
       ) : (
