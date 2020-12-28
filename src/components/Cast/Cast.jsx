@@ -2,11 +2,12 @@ import s from './Cast.module.css';
 import { fetchCast } from '../../API/api';
 import { useEffect, useState } from 'react';
 
-function Cast({ id }) {
+function Cast() {
   const [dataFetchCast, setDataFetchCast] = useState([]);
   useEffect(() => {
     async function gethCast() {
       try {
+        const id = await localStorage.getItem('pathIdCast');
         const dataCast = await fetchCast(id);
         setDataFetchCast(dataCast.cast);
       } catch (error) {
@@ -14,7 +15,7 @@ function Cast({ id }) {
       }
     }
     gethCast();
-  }, [id]);
+  }, []);
 
   return (
     <ul className={s.cast__list}>

@@ -15,6 +15,12 @@ const AsyncComponentDetailsMovie = lazy(() =>
     './components/DetailsMovie/DetailsMovie' /* webpackChunkName: "DetailsMovie" */
   ),
 );
+const AsyncComponentCast = lazy(() =>
+  import('./components/Cast/Cast.jsx' /* webpackChunkName: "Cast" */),
+);
+const AsyncComponentReview = lazy(() =>
+  import('./components/Review/Review' /* webpackChunkName: "Review" */),
+);
 
 function App() {
   return (
@@ -29,8 +35,14 @@ function App() {
             <Navigation />
             <AsyncComponentMoviesPage />
           </Route>
-          <Route exact path="/movies/:id">
+          <Route path="/movies/:id">
             <AsyncComponentDetailsMovie />
+            <Route exact path="/movies/:id/cast">
+              <AsyncComponentCast />
+            </Route>
+            <Route exact path="/movies/:id/review">
+              <AsyncComponentReview />
+            </Route>
           </Route>
         </Switch>
       </BrowserRouter>

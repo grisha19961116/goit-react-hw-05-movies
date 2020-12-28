@@ -1,14 +1,8 @@
 import s from './DetailsMovie.module.css';
 import { fetchDetail } from '../../API/api';
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { useRouteMatch, NavLink, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useRouteMatch, NavLink } from 'react-router-dom';
 import Button from '../Button/Button';
-const AsyncComponentCast = lazy(() =>
-  import('../Cast/Cast.jsx' /* webpackChunkName: "Cast" */),
-);
-const AsyncComponentReview = lazy(() =>
-  import('../Review/Review' /* webpackChunkName: "Review" */),
-);
 
 function DetailsMovie() {
   const id = useRouteMatch();
@@ -42,13 +36,6 @@ function DetailsMovie() {
     getDetailReqAsync();
   }, [currentId]);
 
-  const [idLinksCheck, setIdLinksCheck] = useState(null);
-
-  const handleCastAndReview = e => {
-    const id = Number(e.target.id);
-    setIdLinksCheck(id);
-  };
-
   const {
     genres,
     backdrop_path,
@@ -59,8 +46,9 @@ function DetailsMovie() {
     imdb_id,
   } = dataFetchDetail;
 
+  console.log(dataFetchDetail, `data detail`);
   return (
-    <>
+    <div>
       {genres && <Button textArea={`back to list`} to={pathLc} />}
       {genres && (
         <>
@@ -87,26 +75,20 @@ function DetailsMovie() {
               <h3 className={s.detail_h3_list}>Additional information</h3>
               <span>
                 <NavLink
-                  id="1"
-                  onClick={e => handleCastAndReview(e)}
+                  onClick={() => localStorage.setItem('pathIdCast', imdb_id)}
                   className={s.link}
-                  activeStyle={
-                    idLinksCheck === 1 ? { color: 'red' } : { color: 'blue' }
-                  }
-                  to={`${id.url}`}
+                  activeStyle={{ color: 'blue' }}
+                  to={`/movies/${currentId}/cast`}
                 >
                   Cast
                 </NavLink>
               </span>
               <span>
                 <NavLink
-                  id="2"
-                  onClick={e => handleCastAndReview(e)}
+                  onClick={() => localStorage.setItem('pathIdReview', imdb_id)}
                   className={s.link}
-                  activeStyle={
-                    idLinksCheck === 2 ? { color: 'red' } : { color: 'blue' }
-                  }
-                  to={`${id.url}`}
+                  activeStyle={{ color: 'blue' }}
+                  to={`/movies/${currentId}/review`}
                 >
                   Reviews
                 </NavLink>
@@ -115,13 +97,6 @@ function DetailsMovie() {
           </div>
         </>
       )}
-
-      <Suspense>
-        <Route exact path={`/movies/:id`}>
-          {idLinksCheck === 1 ? <AsyncComponentCast id={imdb_id} /> : null}
-          {idLinksCheck === 2 ? <AsyncComponentReview id={currentId} /> : null}
-        </Route>
-      </Suspense>
 
       {!genres && (
         <div className={s.warning}>
@@ -135,7 +110,7 @@ function DetailsMovie() {
           </h1>
         </div>
       )}
-    </>
+    </div>
   );
 }
 export default DetailsMovie;
