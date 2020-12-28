@@ -40,10 +40,7 @@ function MoviesPage() {
           />
         </form>
       </header>
-      <List
-        query={saveValue !== '' && saveValue}
-        flagTrend={saveValue === '' ? true : false}
-      />
+      <List query={saveValue !== '' && saveValue} flagTrend={false} />
     </>
   );
 }

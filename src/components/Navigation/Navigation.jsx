@@ -1,6 +1,5 @@
 import Button from '../Button/Button';
 import s from './Navigation.module.css';
-import { useLocation } from 'react-router-dom';
 
 const Navigation = () => {
   return (

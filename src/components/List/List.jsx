@@ -5,37 +5,71 @@ import { Route } from 'react-router-dom';
 import ListItem from './ListItem/ListItem';
 
 const List = ({ flagTrend, query }) => {
-  const [dataFetchTrend, setDataFetchTrend] = useState([]);
+  const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    if (query !== '') {
-      return;
+    async function gethTrend() {
+      try {
+        if (!flagTrend) {
+          return;
+        }
+        const dataTrend = await fetchTrend();
+        if (dataTrend === null || dataTrend.length === 0) {
+          return;
+        }
+        setDataList(dataTrend.results);
+      } catch (error) {
+        console.error(error);
+      }
     }
-    flagTrend &&
-      fetchTrend().then(data => {
-        if (data === null || data.length === 0) {
-          return;
-        }
-        setDataFetchTrend(data.results);
-      });
-  }, [flagTrend, query]);
+    gethTrend();
+  }, [flagTrend]);
 
   useEffect(() => {
-    query !== '' &&
-      fetchSearch(query).then(data => {
-        if (data === null || data.length === 0) {
+    async function gethTrend() {
+      try {
+        const dataTrend = await fetchTrend();
+        if (dataTrend === null || dataTrend.length === 0) {
           return;
         }
-        setDataFetchTrend(data.results);
-      });
-  }, [query]);
+        setDataList(dataTrend.results);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function gethSearch() {
+      try {
+        const dataSearch = await fetchSearch(query);
+        if (dataSearch === null || dataSearch.length === 0) {
+          return;
+        }
+        setDataList(dataSearch.results);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (query === false && flagTrend === false) {
+      return gethTrend();
+    }
+
+    if (query !== false && flagTrend === false) {
+      return gethSearch();
+    }
+  }, [query, flagTrend]);
 
   return (
     <>
       {flagTrend && <h1 className={s.trend__h1}>Trending today...</h1>}
+      {!flagTrend && !query && (
+        <h1 className={s.trend__h1}>
+          Trending today...We are in movies page i did it special,for preload...
+        </h1>
+      )}
       <ul className={s.trend__list}>
         <Route>
-          <ListItem dataFetchTrend={dataFetchTrend} />
+          <ListItem dataFetchTrend={dataList} />
         </Route>
       </ul>
     </>

@@ -14,10 +14,7 @@ const HomePage = () => {
 
   return (
     <>
-      <List
-        flagTrend={saveQuery === '' ? true : false}
-        query={saveQuery !== '' && saveQuery}
-      />
+      <List flagTrend={true} query={saveQuery !== '' && saveQuery} />
     </>
   );
 };
