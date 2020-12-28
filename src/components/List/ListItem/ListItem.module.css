@@ -7,6 +7,7 @@
   height: 100px;
 }
 .trend__list__item {
+  list-style: none;
   width: 100%;
   font-size: 25px;
 }

@@ -1,5 +1,6 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Navigation from './components/Navigation/Navigation';
 
 const AsyncComponentHomePage = lazy(() =>
   import('./components/HomePage/HomePage' /* webpackChunkName: "HomePage" */),
@@ -16,30 +17,22 @@ const AsyncComponentDetailsMovie = lazy(() =>
 );
 
 function App() {
-  const [url, setUrl] = useState('');
-
-  const handleUrl = url => {
-    setUrl(url);
-  };
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
+        <Navigation />
         <Switch>
           <Route exact path="/">
-            <AsyncComponentHomePage handleUrl={handleUrl} />
+            <AsyncComponentHomePage />
           </Route>
           <Route exact path="/movies">
-            <AsyncComponentMoviesPage handleUrl={handleUrl} />
+            <AsyncComponentMoviesPage />
           </Route>
-          <Route
-            exact
-            path="/movies/:id"
-            render={props => (
-              <AsyncComponentDetailsMovie {...props} lastUrl={url} />
-            )}
-          />
         </Switch>
+
+        <Route exact path="/movies/:id">
+          <AsyncComponentDetailsMovie />
+        </Route>
       </BrowserRouter>
     </Suspense>
   );

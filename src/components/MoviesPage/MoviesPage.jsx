@@ -1,14 +1,8 @@
-import './MoviesPage.module.css';
 import s from './MoviesPage.module.css';
 import { useState, useEffect } from 'react';
-import { useRouteMatch } from 'react-router-dom';
 import List from '../List/List';
-import Button from '../Button/Button';
 
-function MoviesPage({ handleUrl }) {
-  const { url } = useRouteMatch();
-  handleUrl(url);
-
+function MoviesPage() {
   const [saveValue, setSaveValue] = useState('');
 
   useEffect(() => {
@@ -20,9 +14,11 @@ function MoviesPage({ handleUrl }) {
   }, []);
 
   const handlerSubmit = e => {
-    console.log(e);
     e.preventDefault();
     const query = e.target.lastChild.value.toLowerCase().trim();
+    if (query === '') {
+      return;
+    }
     localStorage.setItem('query', query);
     setSaveValue(query);
   };
@@ -36,7 +32,6 @@ function MoviesPage({ handleUrl }) {
           <button type="submit" className={s.SearchForm__button}>
             <span className="s.SearchForm-button-label"></span>
           </button>
-
           <input
             className={s.SearchForm__input}
             type="text"
@@ -47,12 +42,10 @@ function MoviesPage({ handleUrl }) {
           />
         </form>
       </header>
-      <Button textArea="back on Home Page" to="/" />
-      {saveValue !== '' ? (
-        <List baseUrl={rightRequest} />
-      ) : (
-        <List baseUrl={baseUrlTrend} flagTrend={true} />
-      )}
+      <List
+        baseUrl={saveValue !== '' ? rightRequest : baseUrlTrend}
+        flagTrend={saveValue !== '' ? false : true}
+      />
     </>
   );
 }

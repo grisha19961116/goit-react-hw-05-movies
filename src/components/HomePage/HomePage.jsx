@@ -1,14 +1,8 @@
-import s from './HomePage.module.css';
 import { useState, useEffect } from 'react';
-import { useRouteMatch } from 'react-router-dom';
 import List from '../List/List';
-import Navigation from '../Navigation/Navigation';
 
-const HomePage = ({ handleUrl }) => {
+const HomePage = () => {
   const [saveQuery, setSaveQuery] = useState('');
-
-  const { url } = useRouteMatch();
-  handleUrl(url);
 
   useEffect(() => {
     const getQuery = localStorage.getItem('query');
@@ -23,12 +17,10 @@ const HomePage = ({ handleUrl }) => {
 
   return (
     <>
-      <Navigation />
-      {saveQuery === '' ? (
-        <List baseUrl={baseUrl} flagTrend={true} />
-      ) : (
-        <List baseUrl={rightRequest} flagTrend={false} />
-      )}
+      <List
+        baseUrl={saveQuery === '' ? baseUrl : rightRequest}
+        flagTrend={saveQuery === '' ? true : false}
+      />
     </>
   );
 };

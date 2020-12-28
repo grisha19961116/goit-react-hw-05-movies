@@ -2,7 +2,6 @@ import s from './DetailsMovie.module.css';
 import api from '../../API/api';
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouteMatch, NavLink, Route } from 'react-router-dom';
-import Navigation from '../Navigation/Navigation';
 import Button from '../Button/Button';
 const AsyncComponentCast = lazy(() =>
   import('../Cast/Cast.jsx' /* webpackChunkName: "Cast" */),
@@ -11,19 +10,20 @@ const AsyncComponentReview = lazy(() =>
   import('../Review/Review' /* webpackChunkName: "Review" */),
 );
 
-const DetailsMovie = ({ lastUrl }) => {
+const DetailsMovie = () => {
   const id = useRouteMatch();
   const [DataFetchDetail, setDataFetchDetail] = useState([]);
   const currentId = Number(id.params.id);
-  const [url, setUrl] = useState('');
-
+  const [pathLc, setPathLc] = useState('/');
   useEffect(() => {
-    if (lastUrl === '' || lastUrl === undefined) {
+    const path = localStorage.getItem('path');
+    if (path === null) {
       return;
     }
-    setUrl(lastUrl);
-  }, [lastUrl]);
-  console.log(url, `right prev path`);
+    setPathLc(path);
+  }, []);
+  console.log(pathLc, `pathLc`);
+
   useEffect(() => {
     const getDetailReqAsync = async () => {
       try {
@@ -65,7 +65,7 @@ const DetailsMovie = ({ lastUrl }) => {
 
   return (
     <>
-      <Navigation />
+      {genres && <Button textArea={`back to list`} to={pathLc} />}
       {genres && (
         <>
           <div className={s.detail__wrapper}>
@@ -78,7 +78,7 @@ const DetailsMovie = ({ lastUrl }) => {
             <h2 className={s.detail_h2}>
               {original_title} {release_date.slice(0, 4)}
             </h2>
-            <h4 className={s.detail_h4}>User score : {popularity * 10}%</h4>
+            <h4 className={s.detail_h4}>User score : {popularity}</h4>
             <h3 className={s.detail_h3}>Overview {overview}</h3>
 
             <h3 className={s.detail_h3_list}>Genres</h3>
@@ -127,26 +127,17 @@ const DetailsMovie = ({ lastUrl }) => {
         </Route>
       </Suspense>
 
-      {!genres ? (
+      {!genres && (
         <div className={s.warning}>
           <h1 className={s.warning__h1}>
             We do not have details information about this film
             {
               <>
-                <tr></tr>
-                <Button
-                  textArea={`back for prev list`}
-                  to={url === '' ? '/movies/' : url}
-                />
+                <Button textArea={`back to list`} to={pathLc} />
               </>
             }
           </h1>
         </div>
-      ) : (
-        <Button
-          textArea={`back for prev list`}
-          to={url === '' ? '/movies/' : url}
-        />
       )}
     </>
   );

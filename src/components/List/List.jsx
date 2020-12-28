@@ -1,8 +1,8 @@
-import s from './List.module.css';
+import s from './ListItem/ListItem.module.css';
 import api from '../../API/api';
 import { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
-import ListItem from '../ListItem/ListItem.jsx';
+import ListItem from './ListItem/ListItem';
 
 const List = ({ baseUrl, flagTrend, flagHome }) => {
   const [dataFetchTrend, setDataFetchTrend] = useState([]);

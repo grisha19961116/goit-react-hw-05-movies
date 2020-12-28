@@ -1,7 +1,7 @@
 import s from './Cast.module.css';
 import api from '../../API/api';
 import { useEffect, useState } from 'react';
-import Navigation from '../Navigation/Navigation';
+
 function Cast({ id }) {
   const [dataFetchCast, setDataFetchCast] = useState([]);
   useEffect(() => {
