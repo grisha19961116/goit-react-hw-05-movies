@@ -20,19 +20,19 @@ function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
-        <Navigation />
         <Switch>
           <Route exact path="/">
+            <Navigation />
             <AsyncComponentHomePage />
           </Route>
           <Route exact path="/movies">
+            <Navigation />
             <AsyncComponentMoviesPage />
           </Route>
+          <Route exact path="/movies/:id">
+            <AsyncComponentDetailsMovie />
+          </Route>
         </Switch>
-
-        <Route exact path="/movies/:id">
-          <AsyncComponentDetailsMovie />
-        </Route>
       </BrowserRouter>
     </Suspense>
   );

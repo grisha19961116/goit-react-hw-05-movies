@@ -1,37 +1,27 @@
 import s from './Review.module.css';
-import api from '../../API/api';
+import { fetchReview } from '../../API/api';
 import { useEffect, useState } from 'react';
 
 function Review({ id }) {
-  const [dataFetchReview, setDataFetchReview] = useState({});
+  const [dataFetchReview, setDataFetchReview] = useState(null);
+
   useEffect(() => {
-    const getReviewReqAsync = async () => {
+    async function getReview() {
       try {
-        const baseUrl = `https://api.themoviedb.org/3/movie/tt0092149/reviews?api_key=78f2432cb0b978404715fbeff43c36be&language=en-US&page=1`;
-        const getReviewArray = await api
-          .getFullRequest(baseUrl)
-          .then(dataRequest => {
-            return dataRequest.results;
-          });
-
-        if (getReviewArray === null || getReviewArray.length === 0) {
-          return;
-        }
-
-        setDataFetchReview(getReviewArray[0]);
+        const dataReview = await fetchReview(id);
+        console.log(dataReview);
+        setDataFetchReview(dataReview.results[0]);
       } catch (error) {
         console.error(error);
       }
-    };
-    getReviewReqAsync();
+    }
+    getReview();
   }, [id]);
-  console.log(dataFetchReview, `dataFetchReview`);
-  const { author, content } = dataFetchReview;
-  console.log(content, `content`);
-  return dataFetchReview !== {} ? (
+
+  return dataFetchReview !== null ? (
     <div>
-      <h3 className={s.detail_h3_review}>{author}</h3>
-      <p>{content}</p>
+      <h3 className={s.detail_h3_review}>{dataFetchReview.author}</h3>
+      <p>{dataFetchReview.content}</p>
     </div>
   ) : (
     <h3 className={s.detail_h3_review}>

@@ -1,31 +1,21 @@
 import s from './Cast.module.css';
-import api from '../../API/api';
+import { fetchCast } from '../../API/api';
 import { useEffect, useState } from 'react';
 
 function Cast({ id }) {
   const [dataFetchCast, setDataFetchCast] = useState([]);
   useEffect(() => {
-    const getCastReqAsync = async () => {
+    async function gethCast() {
       try {
-        const baseUrl = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=78f2432cb0b978404715fbeff43c36be&language=en-US`;
-        const getCastArray = await api
-          .getFullRequest(baseUrl)
-          .then(dataRequest => {
-            return dataRequest.cast;
-          });
-
-        if (getCastArray === null || getCastArray.length === 0) {
-          return;
-        }
-
-        setDataFetchCast(getCastArray);
+        const dataCast = await fetchCast(id);
+        setDataFetchCast(dataCast.cast);
       } catch (error) {
         console.error(error);
       }
-    };
-    getCastReqAsync();
+    }
+    gethCast();
   }, [id]);
-  console.log(dataFetchCast, `Cast`);
+
   return (
     <ul className={s.cast__list}>
       {dataFetchCast &&

@@ -1,32 +1,34 @@
 import s from './ListItem/ListItem.module.css';
-import api from '../../API/api';
+import { fetchTrend, fetchSearch } from '../../API/api';
 import { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import ListItem from './ListItem/ListItem';
 
-const List = ({ baseUrl, flagTrend, flagHome }) => {
+const List = ({ flagTrend, query }) => {
   const [dataFetchTrend, setDataFetchTrend] = useState([]);
 
   useEffect(() => {
-    const getTrendReqAsync = async () => {
-      try {
-        const getTrendArray = await api
-          .getFullRequest(baseUrl)
-          .then(dataRequest => {
-            return dataRequest.results;
-          });
-
-        if (getTrendArray === null || getTrendArray.length === 0) {
+    if (query !== '') {
+      return;
+    }
+    flagTrend &&
+      fetchTrend().then(data => {
+        if (data === null || data.length === 0) {
           return;
         }
+        setDataFetchTrend(data.results);
+      });
+  }, [flagTrend, query]);
 
-        setDataFetchTrend(getTrendArray);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getTrendReqAsync();
-  }, [baseUrl]);
+  useEffect(() => {
+    query !== '' &&
+      fetchSearch(query).then(data => {
+        if (data === null || data.length === 0) {
+          return;
+        }
+        setDataFetchTrend(data.results);
+      });
+  }, [query]);
 
   return (
     <>

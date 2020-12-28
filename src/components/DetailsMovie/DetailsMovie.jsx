@@ -1,5 +1,5 @@
 import s from './DetailsMovie.module.css';
-import api from '../../API/api';
+import { fetchDetail } from '../../API/api';
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouteMatch, NavLink, Route } from 'react-router-dom';
 import Button from '../Button/Button';
@@ -10,11 +10,12 @@ const AsyncComponentReview = lazy(() =>
   import('../Review/Review' /* webpackChunkName: "Review" */),
 );
 
-const DetailsMovie = () => {
+function DetailsMovie() {
   const id = useRouteMatch();
-  const [DataFetchDetail, setDataFetchDetail] = useState([]);
-  const currentId = Number(id.params.id);
+  const [dataFetchDetail, setDataFetchDetail] = useState([]);
+  const currentId = id.params.id;
   const [pathLc, setPathLc] = useState('/');
+
   useEffect(() => {
     const path = localStorage.getItem('path');
     if (path === null) {
@@ -22,17 +23,11 @@ const DetailsMovie = () => {
     }
     setPathLc(path);
   }, []);
-  console.log(pathLc, `pathLc`);
 
   useEffect(() => {
-    const getDetailReqAsync = async () => {
+    async function getDetailReqAsync() {
       try {
-        const baseUrl = `https://api.themoviedb.org/3/movie/${currentId}?api_key=78f2432cb0b978404715fbeff43c36be&language=en-US`;
-        const getDetailArray = await api
-          .getFullRequest(baseUrl)
-          .then(dataRequest => {
-            return dataRequest;
-          });
+        const getDetailArray = await fetchDetail(currentId);
 
         if (getDetailArray === null || getDetailArray.length === 0) {
           return;
@@ -42,7 +37,8 @@ const DetailsMovie = () => {
       } catch (error) {
         console.error(error);
       }
-    };
+    }
+
     getDetailReqAsync();
   }, [currentId]);
 
@@ -61,7 +57,7 @@ const DetailsMovie = () => {
     popularity,
     overview,
     imdb_id,
-  } = DataFetchDetail;
+  } = dataFetchDetail;
 
   return (
     <>
@@ -123,7 +119,7 @@ const DetailsMovie = () => {
       <Suspense>
         <Route exact path={`/movies/:id`}>
           {idLinksCheck === 1 ? <AsyncComponentCast id={imdb_id} /> : null}
-          {idLinksCheck === 2 ? <AsyncComponentReview id={id} /> : null}
+          {idLinksCheck === 2 ? <AsyncComponentReview id={currentId} /> : null}
         </Route>
       </Suspense>
 
@@ -141,5 +137,5 @@ const DetailsMovie = () => {
       )}
     </>
   );
-};
+}
 export default DetailsMovie;

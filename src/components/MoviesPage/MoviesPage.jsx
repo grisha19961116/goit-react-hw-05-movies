@@ -23,8 +23,6 @@ function MoviesPage() {
     setSaveValue(query);
   };
 
-  const baseUrlTrend = `https://api.themoviedb.org/3/trending/all/day?api_key=78f2432cb0b978404715fbeff43c36be`;
-  const rightRequest = `https://api.themoviedb.org/3/search/movie?api_key=78f2432cb0b978404715fbeff43c36be&language=en-US&query=${saveValue}&page=1&include_adult=false`;
   return (
     <>
       <header className={s.Searchbar}>
@@ -43,8 +41,8 @@ function MoviesPage() {
         </form>
       </header>
       <List
-        baseUrl={saveValue !== '' ? rightRequest : baseUrlTrend}
-        flagTrend={saveValue !== '' ? false : true}
+        query={saveValue !== '' && saveValue}
+        flagTrend={saveValue === '' ? true : false}
       />
     </>
   );
