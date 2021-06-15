@@ -1,17 +1,16 @@
 import s from './Review.module.css';
-import { fetchReview } from '../../API/api';
+import { fetchReview } from '../../data-api/api';
 import { useEffect, useState } from 'react';
 
 function Review() {
-  const [dataFetchReview, setDataFetchReview] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     async function getReview() {
       try {
-        const id = await localStorage.getItem('pathIdReview');
-        const dataReview = await fetchReview(id);
-
-        setDataFetchReview(dataReview.results[0]);
+        const id = await localStorage.getItem('id');
+        const { results } = await fetchReview(id);
+        setData(results[0]);
       } catch (error) {
         console.error(error);
       }
@@ -19,10 +18,10 @@ function Review() {
     getReview();
   }, []);
 
-  return dataFetchReview !== null && dataFetchReview !== undefined ? (
+  return data ? (
     <div>
-      <h3 className={s.detail_h3_review}>{dataFetchReview.author}</h3>
-      <p>{dataFetchReview.content}</p>
+      <h3 className={s.detail_h3_review}>{data.author}</h3>
+      <p>{data.content}</p>
     </div>
   ) : (
     <h3 className={s.detail_h3_review}>

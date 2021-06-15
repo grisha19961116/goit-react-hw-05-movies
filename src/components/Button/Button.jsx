@@ -1,7 +1,7 @@
 import s from './Button.module.css';
 import { NavLink, useHistory } from 'react-router-dom';
 
-const Button = ({ textArea, to }) => {
+const Button = ({ text, to }) => {
   const history = useHistory();
   const setHistory = to => {
     if (to === '/') {
@@ -18,7 +18,7 @@ const Button = ({ textArea, to }) => {
         activeClassName={s.Button__link__active}
         className={s.Button__link}
       >
-        {textArea}
+        {text}
       </NavLink>
     </button>
   );

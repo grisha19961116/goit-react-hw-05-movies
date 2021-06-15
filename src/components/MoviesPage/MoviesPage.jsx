@@ -1,31 +1,26 @@
-import s from './MoviesPage.module.css';
 import { useState, useEffect } from 'react';
+
+import s from './MoviesPage.module.css';
 import List from '../List/List';
 
 function MoviesPage() {
-  const [saveValue, setSaveValue] = useState('');
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
-    const getQuery = localStorage.getItem('query');
-    if (getQuery === null) {
-      return;
-    }
-    setSaveValue(getQuery);
+    const query = localStorage.getItem('query');
+    setValue(query);
   }, []);
 
   const handlerSubmit = e => {
     e.preventDefault();
     const query = e.target.lastChild.value.toLowerCase().trim();
-    if (query === '') {
-      return;
-    }
     localStorage.setItem('query', query);
-    setSaveValue(query);
+    setValue(query);
   };
 
   return (
     <>
-      <header className={s.Searchbar}>
+      <header className={s.SearchBar}>
         <form className={s.SearchForm} onSubmit={e => handlerSubmit(e)}>
           <button type="submit" className={s.SearchForm__button}>
             <span className="s.SearchForm-button-label"></span>
@@ -40,7 +35,7 @@ function MoviesPage() {
           />
         </form>
       </header>
-      <List query={saveValue !== '' && saveValue} flagTrend={false} />
+      <List flag={false} query={value} />
     </>
   );
 }

@@ -5,8 +5,8 @@ const Navigation = () => {
   return (
     <>
       <div className={s.wrapper__button}>
-        <Button textArea="Home" to="/" />
-        <Button textArea="Movies" to="/movies" />
+        <Button text="Home" to="/" />
+        <Button text="Movies" to="/movies" />
       </div>
     </>
   );

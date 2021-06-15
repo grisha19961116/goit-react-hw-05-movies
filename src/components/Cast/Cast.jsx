@@ -1,15 +1,15 @@
 import s from './Cast.module.css';
-import { fetchCast } from '../../API/api';
+import { fetchCast } from '../../data-api/api';
 import { useEffect, useState } from 'react';
 
 function Cast() {
-  const [dataFetchCast, setDataFetchCast] = useState([]);
+  const [data, setData] = useState([]);
   useEffect(() => {
     async function gethCast() {
       try {
-        const id = await localStorage.getItem('pathIdCast');
-        const dataCast = await fetchCast(id);
-        setDataFetchCast(dataCast.cast);
+        const id = await localStorage.getItem('id');
+        const { cast } = await fetchCast(id);
+        setData(cast);
       } catch (error) {
         console.error(error);
       }
@@ -18,9 +18,9 @@ function Cast() {
   }, []);
 
   return (
-    <ul className={s.cast__list}>
-      {dataFetchCast &&
-        dataFetchCast.map(({ profile_path, cast_id, character, name }) => {
+    data && (
+      <ul className={s.cast__list}>
+        {data.map(({ profile_path, cast_id, character, name }) => {
           return (
             <li className={s.cast__li} key={cast_id}>
               <img
@@ -35,7 +35,8 @@ function Cast() {
             </li>
           );
         })}
-    </ul>
+      </ul>
+    )
   );
 }
 export default Cast;

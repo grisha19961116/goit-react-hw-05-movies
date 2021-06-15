@@ -1,38 +1,18 @@
-import s from './ListItem/ListItem.module.css';
-import { fetchTrend, fetchSearch } from '../../API/api';
+import s from './List.module.css';
+import { fetchTrend, fetchSearch } from '../../data-api/api';
 import { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
-import ListItem from './ListItem/ListItem';
+import ListItems from './ListItems/ListItems';
 
-const List = ({ flagTrend, query }) => {
-  const [dataList, setDataList] = useState([]);
-
-  useEffect(() => {
-    async function gethTrend() {
-      try {
-        if (!flagTrend) {
-          return;
-        }
-        const dataTrend = await fetchTrend();
-        if (dataTrend === null || dataTrend.length === 0) {
-          return;
-        }
-        setDataList(dataTrend.results);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    gethTrend();
-  }, [flagTrend]);
+const List = ({ flag, query }) => {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     async function gethTrend() {
       try {
-        const dataTrend = await fetchTrend();
-        if (dataTrend === null || dataTrend.length === 0) {
-          return;
-        }
-        setDataList(dataTrend.results);
+        const hits = await fetchTrend();
+        if (hits === null || hits.length === 0) return;
+        setData(hits.results);
       } catch (error) {
         console.error(error);
       }
@@ -40,38 +20,31 @@ const List = ({ flagTrend, query }) => {
 
     async function gethSearch() {
       try {
-        const dataSearch = await fetchSearch(query);
-        if (dataSearch === null || dataSearch.length === 0) {
-          return;
-        }
-        setDataList(dataSearch.results);
+        const hits = await fetchSearch(query);
+        if (hits === null || hits.length === 0) return;
+        setData(hits.results);
       } catch (error) {
         console.error(error);
       }
     }
 
-    if (query === false && flagTrend === false) {
-      return gethTrend();
-    }
-
-    if (query !== false && flagTrend === false) {
-      return gethSearch();
-    }
-  }, [query, flagTrend]);
+    if (flag) return gethTrend();
+    if (query && !flag) return gethSearch(query);
+  }, [query, flag]);
 
   return (
     <>
-      {flagTrend && <h1 className={s.trend__h1}>Trending today...</h1>}
-      {!flagTrend && !query && (
+      {flag && <h1 className={s.trend__h1}>Trending today...</h1>}
+      {!flag && !query && (
         <h1 className={s.trend__h1}>
           Trending today...We are in movies page i did it special,for preload...
         </h1>
       )}
-      <ul className={s.trend__list}>
-        <Route>
-          <ListItem dataFetchTrend={dataList} />
-        </Route>
-      </ul>
+      <Route>
+        <ul className={s.trend__list}>
+          <ListItems data={data} />
+        </ul>
+      </Route>
     </>
   );
 };

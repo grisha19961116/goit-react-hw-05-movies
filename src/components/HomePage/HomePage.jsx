@@ -2,19 +2,16 @@ import { useState, useEffect } from 'react';
 import List from '../List/List';
 
 const HomePage = () => {
-  const [saveQuery, setSaveQuery] = useState('');
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
-    const getQuery = localStorage.getItem('query');
-    if (getQuery === null || getQuery === '') {
-      return setSaveQuery('');
-    }
-    setSaveQuery(getQuery);
+    const query = localStorage.getItem('query');
+    setValue(query);
   }, []);
 
   return (
     <>
-      <List flagTrend={true} query={saveQuery !== '' && saveQuery} />
+      <List flag={true} query={value} />
     </>
   );
 };

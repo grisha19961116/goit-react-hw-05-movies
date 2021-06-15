@@ -1,40 +1,33 @@
 import s from './DetailsMovie.module.css';
-import { fetchDetail } from '../../API/api';
+import { fetchDetail } from '../../data-api/api';
 import { useEffect, useState } from 'react';
 import { useRouteMatch, NavLink } from 'react-router-dom';
 import Button from '../Button/Button';
 
 function DetailsMovie() {
-  const id = useRouteMatch();
+  const { params } = useRouteMatch();
+  const id = params.id;
   const [dataFetchDetail, setDataFetchDetail] = useState([]);
-  const currentId = id.params.id;
-  const [pathLc, setPathLc] = useState('/');
+  const [from, setFrom] = useState('/');
 
   useEffect(() => {
     const path = localStorage.getItem('path');
-    if (path === null) {
-      return;
-    }
-    setPathLc(path);
+    if (!path) return;
+    setFrom(path);
   }, []);
 
   useEffect(() => {
     async function getDetailReqAsync() {
       try {
-        const getDetailArray = await fetchDetail(currentId);
-
-        if (getDetailArray === null || getDetailArray.length === 0) {
-          return;
-        }
-
-        setDataFetchDetail(getDetailArray);
+        const data = await fetchDetail(id);
+        if (data === null || data.length === 0) return;
+        setDataFetchDetail(data);
       } catch (error) {
         console.error(error);
       }
     }
-
     getDetailReqAsync();
-  }, [currentId]);
+  }, [id]);
 
   const {
     genres,
@@ -46,10 +39,14 @@ function DetailsMovie() {
     imdb_id,
   } = dataFetchDetail;
 
-  console.log(dataFetchDetail, `data detail`);
   return (
     <div>
-      {genres && <Button textArea={`back to list`} to={pathLc} />}
+      {genres && (
+        <Button
+          text={`back to ${from === '/' ? 'Home Page' : 'Search Bar'}`}
+          to={from}
+        />
+      )}
       {genres && (
         <>
           <div className={s.detail__wrapper}>
@@ -75,20 +72,20 @@ function DetailsMovie() {
               <h3 className={s.detail_h3_list}>Additional information</h3>
               <span>
                 <NavLink
-                  onClick={() => localStorage.setItem('pathIdCast', imdb_id)}
+                  onClick={() => localStorage.setItem('id', imdb_id)}
                   className={s.link}
                   activeStyle={{ color: 'blue' }}
-                  to={`/movies/${currentId}/cast`}
+                  to={`/movies/${id}/cast`}
                 >
                   Cast
                 </NavLink>
               </span>
               <span>
                 <NavLink
-                  onClick={() => localStorage.setItem('pathIdReview', imdb_id)}
+                  onClick={() => localStorage.setItem('id', imdb_id)}
                   className={s.link}
                   activeStyle={{ color: 'blue' }}
-                  to={`/movies/${currentId}/review`}
+                  to={`/movies/${id}/review`}
                 >
                   Reviews
                 </NavLink>
@@ -104,7 +101,10 @@ function DetailsMovie() {
             We do not have details information about this film
             {
               <>
-                <Button textArea={`back to list`} to={pathLc} />
+                <Button
+                  text={`back to ${from === '/' ? 'Home Page' : 'Search Bar'}`}
+                  to={from}
+                />
               </>
             }
           </h1>
