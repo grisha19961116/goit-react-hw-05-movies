@@ -1,9 +1,9 @@
-img {
+/* img {
   min-width: 30%;
   border-radius: 5%;
   -webkit-box-shadow: 5px 5px 15px 5px #ff6ce3;
   box-shadow: 5px 5px 15px 5px #ff6ce3;
-}
+} */
 
 .detail_h2 {
   display: block;
@@ -36,7 +36,7 @@ img {
   flex-wrap: wrap;
   padding: 10px;
 }
-ul {
+/* ul {
   list-style: none;
   width: 100%;
   display: flex;
@@ -47,7 +47,7 @@ li {
   height: auto;
   font-size: 40px;
   color: rgb(240, 140, 240);
-}
+} */
 .detail_h3_list {
   display: block;
   width: 100%;
@@ -59,7 +59,7 @@ li {
 .div_links {
   width: 100%;
 }
-span {
+/* span {
   display: inline-block;
   width: 40%;
   margin-right: 3%;
@@ -67,7 +67,7 @@ span {
   font-size: 60px;
   text-decoration: underline;
   text-decoration-color: blue;
-}
+} */
 .link {
   text-decoration: none;
 }

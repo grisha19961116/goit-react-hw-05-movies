@@ -1,13 +1,14 @@
-import s from './DetailsMovie.module.css';
-import { fetchDetail } from '../../data-api/api';
 import { useEffect, useState } from 'react';
 import { useRouteMatch, NavLink } from 'react-router-dom';
-import Button from '../Button/Button';
+
+import s from './DetailsMovie.module.css';
+import { getDetail } from '../../data-api/data-api';
+import Button from '../Navigation/Button/Button';
 
 function DetailsMovie() {
   const { params } = useRouteMatch();
   const id = params.id;
-  const [dataFetchDetail, setDataFetchDetail] = useState([]);
+  const [data, setData] = useState([]);
   const [from, setFrom] = useState('/');
 
   useEffect(() => {
@@ -17,16 +18,15 @@ function DetailsMovie() {
   }, []);
 
   useEffect(() => {
-    async function getDetailReqAsync() {
+    (async function () {
       try {
-        const data = await fetchDetail(id);
-        if (data === null || data.length === 0) return;
-        setDataFetchDetail(data);
+        const array = await getDetail(id);
+        if (array === null || array.length === 0) return;
+        setData(array);
       } catch (error) {
         console.error(error);
       }
-    }
-    getDetailReqAsync();
+    })();
   }, [id]);
 
   const {
@@ -36,8 +36,7 @@ function DetailsMovie() {
     release_date,
     popularity,
     overview,
-    imdb_id,
-  } = dataFetchDetail;
+  } = data;
 
   return (
     <div>
@@ -72,7 +71,6 @@ function DetailsMovie() {
               <h3 className={s.detail_h3_list}>Additional information</h3>
               <span>
                 <NavLink
-                  onClick={() => localStorage.setItem('id', imdb_id)}
                   className={s.link}
                   activeStyle={{ color: 'blue' }}
                   to={`/movies/${id}/cast`}
@@ -82,7 +80,6 @@ function DetailsMovie() {
               </span>
               <span>
                 <NavLink
-                  onClick={() => localStorage.setItem('id', imdb_id)}
                   className={s.link}
                   activeStyle={{ color: 'blue' }}
                   to={`/movies/${id}/review`}

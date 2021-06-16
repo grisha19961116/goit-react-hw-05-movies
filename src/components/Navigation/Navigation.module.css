@@ -1,13 +1,17 @@
 .wrapper__button {
-  background-color: rgb(192, 189, 189);
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 80%;
-  margin: 0 auto;
-  height: 100px;
-  border-radius: 3%;
+  padding: 10px 0;
 }
-div {
-  background-color: rgb(241, 181, 212);
+
+@media (min-width: 767px) {
+  .wrapper__button {
+    padding: 15px 0;
+  }
+}
+
+@media (min-width: 1400px) {
+  .wrapper__button {
+    padding: 20px 0;
+  }
 }

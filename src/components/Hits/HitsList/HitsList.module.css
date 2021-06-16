@@ -1,0 +1,14 @@
+.hits_item {
+  list-style: none;
+  width: 100%;
+  font-size: 25px;
+}
+
+.hits_link {
+  text-decoration: none;
+  color: palevioletred;
+}
+
+.hits_link:hover {
+  color: rgb(231, 62, 118);
+}

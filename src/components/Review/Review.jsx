@@ -1,22 +1,26 @@
-import s from './Review.module.css';
-import { fetchReview } from '../../data-api/api';
 import { useEffect, useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+
+import s from './Review.module.css';
+import { getReview } from '../../data-api/data-api';
 
 function Review() {
   const [data, setData] = useState(null);
+  const {
+    params: { id },
+  } = useRouteMatch();
 
   useEffect(() => {
-    async function getReview() {
+    async function review() {
       try {
-        const id = await localStorage.getItem('id');
-        const { results } = await fetchReview(id);
+        const { results } = await getReview(id);
         setData(results[0]);
       } catch (error) {
         console.error(error);
       }
     }
-    getReview();
-  }, []);
+    review();
+  }, [id]);
 
   return data ? (
     <div>

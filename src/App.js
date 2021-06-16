@@ -1,14 +1,16 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
+import Loader from './components/Loader/Loader.jsx';
 import Navigation from './components/Navigation/Navigation';
 
 const AsyncComponentHomePage = lazy(() =>
-  import('./components/HomePage/HomePage' /* webpackChunkName: "HomePage" */),
+  import('./components/Home/Home' /* webpackChunkName: "HomePage" */),
 );
 const AsyncComponentMoviesPage = lazy(() =>
-  import(
-    './components/MoviesPage/MoviesPage' /* webpackChunkName: "MoviesPage" */
-  ),
+  import('./components/Movies/Movies' /* webpackChunkName: "MoviesPage" */),
 );
 const AsyncComponentDetailsMovie = lazy(() =>
   import(
@@ -24,7 +26,7 @@ const AsyncComponentReview = lazy(() =>
 
 function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
@@ -45,6 +47,17 @@ function App() {
             </Route>
           </Route>
         </Switch>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </BrowserRouter>
     </Suspense>
   );

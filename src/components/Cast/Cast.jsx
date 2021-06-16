@@ -1,21 +1,25 @@
-import s from './Cast.module.css';
-import { fetchCast } from '../../data-api/api';
 import { useEffect, useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+
+import s from './Cast.module.css';
+import { getCast } from '../../data-api/data-api';
 
 function Cast() {
   const [data, setData] = useState([]);
+  const {
+    params: { id },
+  } = useRouteMatch();
+
   useEffect(() => {
-    async function gethCast() {
+    (async function cast() {
       try {
-        const id = await localStorage.getItem('id');
-        const { cast } = await fetchCast(id);
+        const { cast } = await getCast(id);
         setData(cast);
       } catch (error) {
         console.error(error);
       }
-    }
-    gethCast();
-  }, []);
+    })();
+  }, [id]);
 
   return (
     data && (
