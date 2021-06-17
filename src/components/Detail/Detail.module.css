@@ -1,0 +1,125 @@
+.detail__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.detail_btn_wrapper {
+  display: block;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  width: 100vw;
+}
+
+.detail_navigation_wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.wrapper_description {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.detail_iframe_trailer,
+.detail_img_trailer,
+.detail_description {
+  margin-bottom: 10px;
+}
+
+.detail_img_trailer {
+  width: 420px;
+  height: 345px;
+  border-radius: 5%;
+}
+
+.detail_description {
+  color: white;
+  width: 420px;
+  height: auto;
+  padding: 0 15px;
+  font-family: 'Mountains of Christmas', cursive;
+}
+
+.detail_title,
+.detail_data,
+.detail_popularity,
+.detail_overview,
+.detail_genres_list {
+  margin: 0;
+  margin-bottom: 6px;
+}
+
+.detail_title {
+  font-size: 18px;
+  color: yellow;
+}
+
+.detail_data {
+  color: yellowgreen;
+  font-size: 12px;
+}
+
+.detail_popularity {
+  font-size: 16px;
+}
+
+.detail_overview {
+  color: honeydew;
+  font-size: 12px;
+}
+
+.detail_genres_list {
+  display: flex;
+  list-style: none;
+  font-size: 16px;
+  padding: 0;
+}
+
+.detail_genres_list_first_item {
+  color: honeydew;
+}
+
+.detail_genres_list_item,
+.detail_genres_list_first_item {
+  margin-right: 5px;
+}
+
+@media (min-width: 767px) {
+  .detail_btn_wrapper {
+    padding-left: 15px;
+    margin-bottom: 15px;
+  }
+
+  .detail__wrapper {
+    padding: 15px;
+  }
+
+  .detail_description {
+    padding-top: 50px;
+    width: 40%;
+  }
+
+  .wrapper_description {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1400px) {
+  .detail_btn_wrapper {
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .detail__wrapper {
+    padding: 15px;
+  }
+}

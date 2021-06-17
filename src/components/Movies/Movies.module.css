@@ -50,10 +50,10 @@
   clip-path: inset(50%);
   border: 0;
 }
-
 .SearchForm__input {
   display: inline-block;
   width: 100%;
+  color: rgb(66, 66, 65);
   font-family: 'Mountains of Christmas', cursive;
   font-size: 20px;
   border: none;
@@ -63,8 +63,7 @@
 }
 
 .SearchForm__input::placeholder {
-  font-family: 'Mountains of Christmas', cursive;
-  font-size: 18px;
+  color: rgb(253, 146, 7);
 }
 
 @media (min-width: 767px) {

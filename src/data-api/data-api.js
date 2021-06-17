@@ -24,6 +24,11 @@ const getDetail = async id => {
   return data;
 };
 
+const getIframe = async id => {
+  const { data } = await axios.get(`/movie/${id}/videos?language=en-US`);
+  return data;
+};
+
 const getCast = async id => {
   const { data } = await axios.get(`/movie/${id}/credits?language=en-US`);
   return data;
@@ -36,4 +41,4 @@ const getReview = async (id, page = 1) => {
   return data;
 };
 
-export { getTrend, getSearch, getDetail, getCast, getReview };
+export { getTrend, getSearch, getDetail, getIframe, getCast, getReview };

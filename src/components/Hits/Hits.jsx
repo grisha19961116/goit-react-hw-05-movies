@@ -71,26 +71,13 @@ const Hits = ({ flag, query }) => {
     if (query && !flag) return search(query);
   }, [query, flag]);
 
-  const renderList = text => {
-    return (
-      <>
-        <h1 className={s.hits_title}> {text} </h1>
-        <Route>
-          <ul className={s.hits_list}>
-            <HitsList data={data} />
-          </ul>
-          {isLoading && <Loader />}
-        </Route>
-      </>
-    );
-  };
-
   return (
-    <>
-      {flag && renderList('Trending today')}
-      {!flag && query && renderList('Search list')}
-      {!flag && !query && <h1 className={s.hits_title}> Just empty query</h1>}
-    </>
+    <Route>
+      <ul className={s.hits_list}>
+        <HitsList data={data} />
+      </ul>
+      {isLoading && <Loader />}
+    </Route>
   );
 };
 

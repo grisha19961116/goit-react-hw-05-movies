@@ -2,7 +2,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 
 import s from './Button.module.css';
 
-const Button = ({ text, to }) => {
+const Button = ({ text, to, isRedirect }) => {
   const history = useHistory();
 
   const setHistory = to => {
@@ -16,7 +16,7 @@ const Button = ({ text, to }) => {
     <button
       type="button"
       className={s.button_navigation}
-      onClick={() => setHistory(to)}
+      onClick={() => !isRedirect && setHistory(to)}
     >
       <NavLink
         exact

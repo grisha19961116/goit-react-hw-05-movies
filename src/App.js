@@ -6,22 +6,20 @@ import { ToastContainer } from 'react-toastify';
 import Loader from './components/Loader/Loader.jsx';
 import Navigation from './components/Navigation/Navigation';
 
-const AsyncComponentHomePage = lazy(() =>
+const HomePage = lazy(() =>
   import('./components/Home/Home' /* webpackChunkName: "HomePage" */),
 );
-const AsyncComponentMoviesPage = lazy(() =>
+const MoviesPage = lazy(() =>
   import('./components/Movies/Movies' /* webpackChunkName: "MoviesPage" */),
 );
-const AsyncComponentDetailsMovie = lazy(() =>
-  import(
-    './components/DetailsMovie/DetailsMovie' /* webpackChunkName: "DetailsMovie" */
-  ),
+const DetailPge = lazy(() =>
+  import('./components/Detail/Detail' /* webpackChunkName: "DetailPage" */),
 );
-const AsyncComponentCast = lazy(() =>
-  import('./components/Cast/Cast.jsx' /* webpackChunkName: "Cast" */),
+const DetailCast = lazy(() =>
+  import('./components/Cast/Cast.jsx' /* webpackChunkName: "DetailCast" */),
 );
-const AsyncComponentReview = lazy(() =>
-  import('./components/Review/Review' /* webpackChunkName: "Review" */),
+const DetailReview = lazy(() =>
+  import('./components/Review/Review' /* webpackChunkName: "DetailReview" */),
 );
 
 function App() {
@@ -31,19 +29,19 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Navigation />
-            <AsyncComponentHomePage />
+            <HomePage />
           </Route>
           <Route exact path="/movies">
             <Navigation />
-            <AsyncComponentMoviesPage />
+            <MoviesPage />
           </Route>
           <Route path="/movies/:id">
-            <AsyncComponentDetailsMovie />
+            <DetailPge />
             <Route exact path="/movies/:id/cast">
-              <AsyncComponentCast />
+              <DetailCast />
             </Route>
             <Route exact path="/movies/:id/review">
-              <AsyncComponentReview />
+              <DetailReview />
             </Route>
           </Route>
         </Switch>
