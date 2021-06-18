@@ -1,32 +1,68 @@
-.cast__list {
-  list-style: none;
-  display: block;
-  width: 100%;
-}
-.cast__li {
-  display: block;
-  width: 100%;
+.cast_list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   height: auto;
+  width: 100%;
+  padding: 0;
+  list-style: none;
+  font-family: 'Mountains of Christmas', cursive;
+  word-wrap: break-word;
 }
-.cast__img {
+.cast_item {
   display: inline-block;
-  height: 300px;
+  width: 40%;
+  height: auto;
+  margin-bottom: 10px;
+}
+.cast_img {
+  width: 100px;
+  margin: 0 auto;
   object-fit: cover;
-  border-radius: 5%;
+  margin-bottom: 8px;
+  -webkit-box-shadow: 0px 1px 15px 10px #373737;
+  box-shadow: 0px 1px 15px 10px #373737;
 }
-.cast__h2 {
-  display: block;
-  width: 100%;
-  font-size: 30px;
-  color: rgb(124, 34, 124);
-  padding-left: 120px;
-  text-align: start;
+.cast_name,
+.cast_character {
+  font-size: 15px;
+  margin-bottom: 8px;
+  text-align: center;
 }
-.cast__3 {
-  display: block;
-  width: 100%;
-  font-size: 40px;
-  color: rgb(78, 16, 78);
-  padding-left: 120px;
-  text-align: start;
+
+.cast_name {
+  color: yellow;
+}
+.cast_character {
+  color: palevioletred;
+}
+
+@media (min-width: 767px) {
+  .cast_item {
+    width: 30%;
+  }
+  .cast_img {
+    width: 120px;
+    margin-bottom: 12px;
+  }
+  .cast_name,
+  .cast_character {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .cast_item {
+    width: 22%;
+  }
+  .cast_img {
+    width: 150px;
+    margin-bottom: 16px;
+  }
+  .cast_name,
+  .cast_character {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
 }

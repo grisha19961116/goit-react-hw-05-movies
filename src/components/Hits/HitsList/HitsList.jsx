@@ -6,12 +6,9 @@ import s from './HitsList.module.css';
 
 const HitsList = ({ data }) => {
   const { path } = useRouteMatch();
-  console.log(errImg);
 
   return data.length > 0
     ? data.map(({ original_title, backdrop_path, id }, i) => {
-        console.log(!backdrop_path);
-        const title = original_title ? original_title : 'The film...';
         return (
           <li key={i} className={s.hits_item}>
             <Link
@@ -21,7 +18,7 @@ const HitsList = ({ data }) => {
             >
               <img
                 className={s.hits_img}
-                alt={original_title}
+                alt={original_title ? original_title : 'title'}
                 src={
                   backdrop_path
                     ? `https://image.tmdb.org/t/p/w500/${backdrop_path}`
@@ -30,7 +27,9 @@ const HitsList = ({ data }) => {
                 width="500px"
                 height="300px"
               />
-              <p className={s.hits_title}>{title}</p>
+              <p className={s.hits_title}>
+                {original_title ? original_title : 'Unknown film...'}
+              </p>
             </Link>
           </li>
         );

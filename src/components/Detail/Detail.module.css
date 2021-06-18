@@ -1,4 +1,4 @@
-.detail__wrapper {
+.detail_wrapper {
   display: flex;
   align-items: center;
   justify-content: start;
@@ -34,10 +34,14 @@
   margin-bottom: 10px;
 }
 
+.detail_iframe_trailer,
+.detail_img_trailer {
+  -webkit-box-shadow: 0px 1px 15px 10px #373737;
+  box-shadow: 0px 1px 15px 10px #373737;
+}
 .detail_img_trailer {
   width: 420px;
   height: 345px;
-  border-radius: 5%;
 }
 
 .detail_description {
@@ -58,28 +62,28 @@
 }
 
 .detail_title {
-  font-size: 18px;
+  font-size: 20px;
   color: yellow;
 }
 
 .detail_data {
   color: yellowgreen;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .detail_popularity {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .detail_overview {
   color: honeydew;
-  font-size: 12px;
+  font-size: 18px;
 }
 
 .detail_genres_list {
   display: flex;
   list-style: none;
-  font-size: 16px;
+  font-size: 18px;
   padding: 0;
 }
 
@@ -92,13 +96,20 @@
   margin-right: 5px;
 }
 
+.detail_error {
+  color: rgb(255, 251, 251);
+  font-family: 'Mountains of Christmas', cursive;
+  font-size: 20px;
+  text-align: center;
+}
+
 @media (min-width: 767px) {
   .detail_btn_wrapper {
     padding-left: 15px;
     margin-bottom: 15px;
   }
 
-  .detail__wrapper {
+  .detail_wrapper {
     padding: 15px;
   }
 
@@ -109,7 +120,46 @@
 
   .wrapper_description {
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+  }
+
+  .detail_title,
+  .detail_data,
+  .detail_popularity,
+  .detail_overview,
+  .detail_genres_list {
+    margin-bottom: 10px;
+  }
+
+  .detail_title {
+    font-size: 24px;
+  }
+
+  .detail_data {
+    font-size: 16px;
+  }
+
+  .detail_popularity {
+    font-size: 20px;
+  }
+
+  .detail_overview {
+    font-size: 21px;
+  }
+
+  .detail_genres_list {
+    font-size: 20px;
+  }
+
+  .detail_genres_list_item,
+  .detail_genres_list_first_item {
+    margin-right: 8px;
+  }
+
+  .detail_error {
+    font-size: 24px;
   }
 }
 
@@ -119,7 +169,44 @@
     margin-bottom: 20px;
   }
 
-  .detail__wrapper {
+  .detail_wrapper {
     padding: 15px;
+  }
+
+  .detail_title,
+  .detail_data,
+  .detail_popularity,
+  .detail_overview,
+  .detail_genres_list {
+    margin-bottom: 14px;
+  }
+
+  .detail_title {
+    font-size: 28px;
+  }
+
+  .detail_data {
+    font-size: 18px;
+  }
+
+  .detail_popularity {
+    font-size: 22px;
+  }
+
+  .detail_overview {
+    font-size: 24px;
+  }
+
+  .detail_genres_list {
+    font-size: 22px;
+  }
+
+  .detail_genres_list_item,
+  .detail_genres_list_first_item {
+    margin-right: 10px;
+  }
+
+  .detail_error {
+    font-size: 28px;
   }
 }
