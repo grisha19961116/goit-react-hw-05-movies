@@ -9,6 +9,9 @@ import Navigation from './components/Navigation/Navigation';
 const HomePage = lazy(() =>
   import('./components/Home/Home' /* webpackChunkName: "HomePage" */),
 );
+const LibraryPage = lazy(() =>
+  import('./components/Library/Library' /* webpackChunkName: "LibraryPage" */),
+);
 const MoviesPage = lazy(() =>
   import('./components/Movies/Movies' /* webpackChunkName: "MoviesPage" */),
 );
@@ -30,6 +33,10 @@ function App() {
           <Route exact path="/">
             <Navigation />
             <HomePage />
+          </Route>
+          <Route exact path="/library">
+            <Navigation />
+            <LibraryPage />
           </Route>
           <Route exact path="/movies">
             <Navigation />

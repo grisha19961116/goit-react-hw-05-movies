@@ -1,23 +1,10 @@
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import s from './Button.module.css';
 
-const Button = ({ text, to, isRedirect }) => {
-  const history = useHistory();
-
-  const setHistory = to => {
-    if (to === '/') {
-      return history.push(to, { from: 'home' });
-    }
-    history.push(to, { from: 'movie' });
-  };
-
+const Button = ({ text, to }) => {
   return (
-    <button
-      type="button"
-      className={s.button_navigation}
-      onClick={() => !isRedirect && setHistory(to)}
-    >
+    <button type="button" className={s.button_navigation}>
       <NavLink
         exact
         to={to}

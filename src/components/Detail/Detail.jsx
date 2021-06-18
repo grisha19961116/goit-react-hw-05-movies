@@ -122,8 +122,8 @@ function Detail() {
         </div>
       </div>
       <div className={s.detail_navigation_wrapper}>
-        <Button text="Cast" to={`/movies/${id}/cast`} isRedirect={true} />
-        <Button text="Review" to={`/movies/${id}/review`} isRedirect={true} />
+        <Button text="Cast" to={`/movies/${id}/cast`} />
+        <Button text="Review" to={`/movies/${id}/review`} />
       </div>
     </div>
   ) : (

@@ -6,6 +6,7 @@ const Navigation = () => {
     <div className={s.wrapper__button}>
       <Button text="Home" to="/" />
       <Button text="Movies" to="/movies" />
+      <Button text="Library" to="/library" />
     </div>
   );
 };
