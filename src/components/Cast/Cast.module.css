@@ -37,6 +37,14 @@
   color: palevioletred;
 }
 
+.cast_error {
+  margin-top: 100px;
+  color: rgb(255, 251, 251);
+  font-family: 'Mountains of Christmas', cursive;
+  font-size: 20px;
+  text-align: center;
+}
+
 @media (min-width: 767px) {
   .cast_item {
     width: 30%;

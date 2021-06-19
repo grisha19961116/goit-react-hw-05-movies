@@ -4,12 +4,14 @@
   justify-content: start;
   flex-wrap: wrap;
   padding: 10px;
+  padding-top: 0;
 }
 
 .detail_btn_wrapper {
   display: block;
   padding-left: 10px;
   margin-bottom: 10px;
+  padding-top: 10px;
   width: 100vw;
 }
 
@@ -111,6 +113,7 @@
 
   .detail_wrapper {
     padding: 15px;
+    padding-top: 0;
   }
 
   .detail_description {
@@ -160,6 +163,9 @@
 
   .detail_error {
     font-size: 24px;
+    position: absolute;
+    left: 43%;
+    top: 20%;
   }
 }
 
@@ -170,7 +176,8 @@
   }
 
   .detail_wrapper {
-    padding: 15px;
+    padding: 20px;
+    padding-top: 0;
   }
 
   .detail_title,

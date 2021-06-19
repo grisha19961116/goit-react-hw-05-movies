@@ -33,6 +33,14 @@
   color: rgb(9, 250, 9);
 }
 
+.hits_list_error {
+  margin-top: 100px;
+  color: rgb(255, 251, 251);
+  font-family: 'Mountains of Christmas', cursive;
+  font-size: 30px;
+  text-align: center;
+}
+
 @media (min-width: 767px) {
   .hits_item {
     width: 22%;

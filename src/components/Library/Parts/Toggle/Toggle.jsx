@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import s from './QueueWatched.module.css';
+import s from './Toggle.module.css';
 
 const toggleToQueue = movie => {
   const queue = document.getElementById('queue');
@@ -14,7 +14,6 @@ const toggleToQueue = movie => {
     film.push(movie);
     queue.textContent = 'Delete from queue';
   }
-  console.log(film);
   localStorage.setItem('queue', JSON.stringify(film));
 };
 
@@ -33,7 +32,7 @@ const toggleToWatched = movie => {
   localStorage.setItem('watched', JSON.stringify(film));
 };
 
-const QueueWatched = ({ movie }) => {
+const Toggle = ({ movie }) => {
   const [isQueue, setIsQueue] = useState(null);
   const [isWatched, setIsWatched] = useState(null);
 
@@ -74,4 +73,4 @@ const QueueWatched = ({ movie }) => {
   );
 };
 
-export { QueueWatched };
+export default Toggle;

@@ -45,6 +45,7 @@
 }
 
 .review_error {
+  margin-top: 100px;
   color: rgb(255, 251, 251);
   font-family: 'Mountains of Christmas', cursive;
   font-size: 20px;

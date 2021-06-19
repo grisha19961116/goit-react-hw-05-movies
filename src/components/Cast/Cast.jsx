@@ -62,7 +62,9 @@ function Cast() {
             );
           })}
         </ul>
-      ) : null}
+      ) : (
+        <h3 className={s.cast_error}>Cast content is missed...</h3>
+      )}
       {isLoading && <Loader />}
     </>
   );

@@ -1,10 +1,10 @@
 import s from './Library.module.css';
+import Navigation from './Navigation/Navigation';
 
 const Library = () => {
   return (
-    <div className={s.library_btn_wrapper}>
-      <button className={s.library__btn}>Queue</button>
-      <button className={s.library__btn}>Watched</button>
+    <div className={s.library_wrapper}>
+      <Navigation />
     </div>
   );
 };
