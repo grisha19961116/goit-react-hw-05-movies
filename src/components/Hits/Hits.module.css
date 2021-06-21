@@ -5,17 +5,21 @@
   justify-content: space-around;
   flex-wrap: wrap;
   width: 100%;
-  padding: 10px 0;
+  padding-bottom: 10px;
+  padding-top: 60px;
+  padding-left: 0;
 }
 
 @media (min-width: 767px) {
   .hits_list {
-    padding: 15px 0;
+    padding-bottom: 15px;
+    padding-top: 70px;
   }
 }
 
 @media (min-width: 1400px) {
   .hits_list {
-    padding: 20px 0;
+    padding-bottom: 20px;
+    padding-top: 90px;
   }
 }

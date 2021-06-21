@@ -1,4 +1,8 @@
 .wrapper__button {
+  position: fixed;
+  background-color: rgb(95, 92, 92);
+  width: 100vw;
+  z-index: 100;
   display: flex;
   justify-content: center;
   padding: 10px 0;
@@ -7,11 +11,5 @@
 @media (min-width: 767px) {
   .wrapper__button {
     padding: 15px 0;
-  }
-}
-
-@media (min-width: 1400px) {
-  .wrapper__button {
-    padding: 20px 0;
   }
 }

@@ -4,13 +4,15 @@
   justify-content: start;
   flex-wrap: wrap;
   padding: 10px;
-  padding-top: 0;
+  padding-top: 60px;
 }
 
 .detail_btn_wrapper {
-  display: block;
+  position: fixed;
+  background-color: rgb(37, 37, 36);
+  z-index: 10;
   padding-left: 10px;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
   padding-top: 10px;
   width: 100vw;
 }
@@ -108,12 +110,13 @@
 @media (min-width: 767px) {
   .detail_btn_wrapper {
     padding-left: 15px;
-    margin-bottom: 15px;
+    padding-bottom: 15px;
+    padding-top: 15px;
   }
 
   .detail_wrapper {
     padding: 15px;
-    padding-top: 0;
+    padding-top: 80px;
   }
 
   .detail_description {
@@ -170,14 +173,9 @@
 }
 
 @media (min-width: 1400px) {
-  .detail_btn_wrapper {
-    padding-left: 20px;
-    margin-bottom: 20px;
-  }
-
   .detail_wrapper {
     padding: 20px;
-    padding-top: 0;
+    padding-top: 80px;
   }
 
   .detail_title,

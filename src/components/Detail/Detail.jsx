@@ -5,6 +5,7 @@ import s from './Detail.module.css';
 import { getDetail, getIframe } from '../../data-api/data-api';
 import Button from '../Navigation/Button/Button';
 import ToggleLC from '../Library/ToggleLC/ToggleLC';
+import Loader from '../Loader/Loader';
 
 function Detail() {
   const { params } = useRouteMatch();
@@ -12,6 +13,7 @@ function Detail() {
   const [data, setData] = useState([]);
   const [from, setFrom] = useState(null);
   const [fromLibrary, setFromLibrary] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const pathLibrary = localStorage.getItem('library');
@@ -24,6 +26,7 @@ function Detail() {
   useEffect(() => {
     (async function () {
       try {
+        setIsLoading(true);
         const array = await getDetail(id);
         if (array === null || array.length === 0) return;
         const iframe = await getIframe(id);
@@ -48,17 +51,21 @@ function Detail() {
         setData(state);
       } catch (err) {
         setData(null);
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, [id]);
 
   const randomColor = () => Math.floor(Math.random() * 16777215).toString(16);
 
+  const library = fromLibrary === '/library/watched' ? 'Watched' : 'Queue';
+
   return (
     <>
       <div className={s.detail_btn_wrapper}>
         <Button
-          text={fromLibrary ? 'Library' : from === '/' ? 'Home' : 'Movies'}
+          text={fromLibrary ? library : from === '/' ? 'Home' : 'Movies'}
           to={fromLibrary ? fromLibrary : from === '/' ? '/' : '/movies'}
         />
       </div>
@@ -137,6 +144,7 @@ function Detail() {
       ) : (
         <h3 className={s.detail_error}>Detail content is missed...</h3>
       )}
+      {isLoading && <Loader />}
     </>
   );
 }

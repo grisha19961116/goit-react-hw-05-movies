@@ -12,7 +12,7 @@ function PaginationBar({ page, total, handlePageChange }) {
         activePage={page}
         itemsCountPerPage={1}
         totalItemsCount={total}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={total > 5 ? 5 : total}
         onChange={handlePageChange}
       />
     </div>

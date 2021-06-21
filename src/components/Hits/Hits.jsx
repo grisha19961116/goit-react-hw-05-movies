@@ -8,12 +8,21 @@ import Loader from '../Loader/Loader';
 import HitsList from './HitsList/HitsList';
 import Pagination from '../PaginationBar/PaginationBar';
 
-const Hits = ({ flag, query, dataLibrary = null, page, handlePageChange }) => {
+const Hits = ({
+  flag,
+  query,
+  dataLibrary = null,
+  page,
+  handlePageChange,
+  total,
+}) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (dataLibrary) return;
+    if (dataLibrary) {
+      return dataLibrary.length !== 0 && setData(dataLibrary[0]);
+    }
     const err = () =>
       toast.error(`🚀 Server error!`, {
         position: 'bottom-left',
@@ -74,17 +83,16 @@ const Hits = ({ flag, query, dataLibrary = null, page, handlePageChange }) => {
     if (query === '' && !flag) return setData([]);
   }, [query, flag, dataLibrary, page]);
 
-  const array = dataLibrary ? dataLibrary : data;
-
+  console.log(data);
   return (
     <Route>
       <ul className={s.hits_list}>
-        <HitsList data={array} />
+        <HitsList data={data} />
       </ul>
-      {array.length > 0 && handlePageChange && (
+      {handlePageChange && (
         <Pagination
           page={page}
-          total={array.length}
+          total={total ? total : data.length}
           handlePageChange={handlePageChange}
         />
       )}

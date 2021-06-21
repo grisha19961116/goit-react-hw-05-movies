@@ -13,7 +13,7 @@ const Library = () => {
   }, []);
 
   return (
-    <>
+    <div className={s.library_navigation_wrapper}>
       <div className={s.library_btn_wrapper}>
         <Button text={from === '/' ? 'Home' : 'Movies'} to={from} />
       </div>
@@ -21,7 +21,7 @@ const Library = () => {
         <Button text="Queue" to={'/library/queue'} />
         <Button text="Watched" to={'/library/watched'} />
       </div>
-    </>
+    </div>
   );
 };
 

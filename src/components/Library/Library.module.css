@@ -1,31 +1,37 @@
-.library_btn_wrapper {
-  font-family: 'Mountains of Christmas', cursive;
-  display: block;
-  padding-left: 10px;
-  margin-bottom: 10px;
-  padding-top: 10px;
+.library_navigation_wrapper {
+  position: fixed;
+  display: flex;
+  top: 0;
   width: 100vw;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  padding: 10px 0;
+  background-color: rgb(37, 37, 36);
+  font-family: 'Mountains of Christmas', cursive;
+  z-index: 10;
+}
+
+.library_btn_wrapper {
+  width: auto;
 }
 
 .library_refs_wrapper {
   display: flex;
-  justify-content: center;
-  font-family: 'Mountains of Christmas', cursive;
-  padding: 14px 0;
+  width: 170px;
+  justify-content: space-between;
 }
 
 @media (min-width: 767px) {
-  .library_btn_wrapper {
-    padding-left: 15px;
-    padding-top: 15px;
-    margin-bottom: 15px;
+  .library_navigation_wrapper {
+    padding: 15px 0;
+  }
+  .library_refs_wrapper {
+    width: 225px;
   }
 }
 
 @media (min-width: 1400px) {
-  .library_btn_wrapper {
-    padding-left: 20px;
-    padding-top: 20px;
-    margin-bottom: 20px;
+  .library_refs_wrapper {
+    width: 270px;
   }
 }
