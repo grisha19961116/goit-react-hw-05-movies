@@ -2,9 +2,9 @@ import { NavLink } from 'react-router-dom';
 
 import s from './Button.module.css';
 
-const Button = ({ text, to }) => {
+const Button = ({ handleClick, text, to }) => {
   return (
-    <button type="button" className={s.button_navigation}>
+    <button onClick={handleClick} type="button" className={s.button_navigation}>
       <NavLink
         exact
         to={to}

@@ -4,15 +4,18 @@ import { useRouteMatch } from 'react-router-dom';
 import s from './Detail.module.css';
 import { getDetail, getIframe } from '../../data-api/data-api';
 import Button from '../Navigation/Button/Button';
-import Toggle from '../Library/Parts/Toggle/Toggle';
+import ToggleLC from '../Library/ToggleLC/ToggleLC';
 
 function Detail() {
   const { params } = useRouteMatch();
   const id = params.id;
   const [data, setData] = useState([]);
-  const [from, setFrom] = useState('/');
+  const [from, setFrom] = useState(null);
+  const [fromLibrary, setFromLibrary] = useState(null);
 
   useEffect(() => {
+    const pathLibrary = localStorage.getItem('library');
+    if (pathLibrary) return setFromLibrary(pathLibrary);
     const path = localStorage.getItem('path');
     if (!path) return;
     setFrom(path);
@@ -54,11 +57,14 @@ function Detail() {
   return (
     <>
       <div className={s.detail_btn_wrapper}>
-        <Button text={from === '/' ? 'Home' : 'Movies'} to={from} />
+        <Button
+          text={fromLibrary ? 'Library' : from === '/' ? 'Home' : 'Movies'}
+          to={fromLibrary ? fromLibrary : from === '/' ? '/' : '/movies'}
+        />
       </div>
       {data && data.length !== 0 ? (
         <div className={s.detail_wrapper}>
-          <Toggle movie={data} />
+          <ToggleLC movie={data} />
           <div className={s.wrapper_description}>
             {data.key ? (
               <iframe

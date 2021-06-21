@@ -7,11 +7,12 @@ import { getTrend, getSearch } from '../../data-api/data-api';
 import Loader from '../Loader/Loader';
 import HitsList from './HitsList/HitsList';
 
-const Hits = ({ flag, query }) => {
+const Hits = ({ flag, query, dataLibrary = null }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    if (dataLibrary) return;
     const err = () =>
       toast.error(`🚀 Server error!`, {
         position: 'bottom-left',
@@ -69,12 +70,12 @@ const Hits = ({ flag, query }) => {
 
     if (flag) return trend();
     if (query && !flag) return search(query);
-  }, [query, flag]);
+  }, [query, flag, dataLibrary]);
 
   return (
     <Route>
       <ul className={s.hits_list}>
-        <HitsList data={data} />
+        <HitsList data={dataLibrary ? dataLibrary : data} />
       </ul>
       {isLoading && <Loader />}
     </Route>

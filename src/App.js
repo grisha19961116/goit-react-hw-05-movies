@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-import Loader from './components/Loader/Loader.jsx';
+import Loader from './components/Loader/Loader';
 import Navigation from './components/Navigation/Navigation';
 
 const HomePage = lazy(() =>
@@ -12,6 +12,11 @@ const HomePage = lazy(() =>
 const LibraryPage = lazy(() =>
   import('./components/Library/Library' /* webpackChunkName: "LibraryPage" */),
 );
+const QueueWatched = lazy(() =>
+  import(
+    './components/Library/QueueWatched/QueueWatched' /* webpackChunkName: "QueueWatched" */
+  ),
+);
 const MoviesPage = lazy(() =>
   import('./components/Movies/Movies' /* webpackChunkName: "MoviesPage" */),
 );
@@ -19,7 +24,7 @@ const DetailPge = lazy(() =>
   import('./components/Detail/Detail' /* webpackChunkName: "DetailPage" */),
 );
 const DetailCast = lazy(() =>
-  import('./components/Cast/Cast.jsx' /* webpackChunkName: "DetailCast" */),
+  import('./components/Cast/Cast' /* webpackChunkName: "DetailCast" */),
 );
 const DetailReview = lazy(() =>
   import('./components/Review/Review' /* webpackChunkName: "DetailReview" */),
@@ -34,9 +39,14 @@ function App() {
             <Navigation />
             <HomePage />
           </Route>
-          <Route exact path="/library">
-            <Navigation />
+          <Route path="/library">
             <LibraryPage />
+            <Route exact path="/library/queue">
+              <QueueWatched flag="queue" />
+            </Route>
+            <Route exact path="/library/watched">
+              <QueueWatched flag="watched" />
+            </Route>
           </Route>
           <Route exact path="/movies">
             <Navigation />

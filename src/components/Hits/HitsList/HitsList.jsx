@@ -1,21 +1,15 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import errImg from '../../../img/360_F_17777112_qXha4dViITwacvljBhqexBJdA0w09W3p(1).png';
 import s from './HitsList.module.css';
 
 const HitsList = ({ data }) => {
-  const { path } = useRouteMatch();
-
   return data.length > 0 ? (
     data.map(({ original_title, backdrop_path, id }, i) => {
       return (
         <li key={i} className={s.hits_item}>
-          <Link
-            className={s.hits_link}
-            to={`/movies/${id}`}
-            onClick={() => localStorage.setItem('path', path)}
-          >
+          <Link className={s.hits_link} to={`/movies/${id}`}>
             <img
               className={s.hits_img}
               alt={original_title ? original_title : 'title'}
