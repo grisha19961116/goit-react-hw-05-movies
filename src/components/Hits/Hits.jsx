@@ -6,8 +6,9 @@ import s from './Hits.module.css';
 import { getTrend, getSearch } from '../../data-api/data-api';
 import Loader from '../Loader/Loader';
 import HitsList from './HitsList/HitsList';
+import Pagination from '../PaginationBar/PaginationBar';
 
-const Hits = ({ flag, query, dataLibrary = null }) => {
+const Hits = ({ flag, query, dataLibrary = null, page, handlePageChange }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,7 +46,7 @@ const Hits = ({ flag, query, dataLibrary = null }) => {
     async function trend() {
       try {
         setIsLoading(true);
-        const { results } = await getTrend();
+        const { results } = await getTrend(page);
         if (results === null || results.length === 0) return warn(false);
         setData(results);
       } catch (e) {
@@ -58,7 +59,7 @@ const Hits = ({ flag, query, dataLibrary = null }) => {
     async function search() {
       try {
         setIsLoading(true);
-        const { results } = await getSearch(query);
+        const { results } = await getSearch(query, page);
         if (results === null || results.length === 0) return warn(true);
         setData(results);
       } catch (e) {
@@ -69,14 +70,24 @@ const Hits = ({ flag, query, dataLibrary = null }) => {
     }
 
     if (flag) return trend();
-    if (query && !flag) return search(query);
-  }, [query, flag, dataLibrary]);
+    if (query && query !== '' && !flag) return search();
+    if (query === '' && !flag) return setData([]);
+  }, [query, flag, dataLibrary, page]);
+
+  const array = dataLibrary ? dataLibrary : data;
 
   return (
     <Route>
       <ul className={s.hits_list}>
-        <HitsList data={dataLibrary ? dataLibrary : data} />
+        <HitsList data={array} />
       </ul>
+      {array.length > 0 && handlePageChange && (
+        <Pagination
+          page={page}
+          total={array.length}
+          handlePageChange={handlePageChange}
+        />
+      )}
       {isLoading && <Loader />}
     </Route>
   );

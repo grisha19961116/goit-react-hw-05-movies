@@ -7,12 +7,12 @@ axios.defaults.params = {
   api_key: apiKey,
 };
 
-const getTrend = async (page = 1) => {
+const getTrend = async page => {
   const { data } = await axios.get(`/trending/all/day?page=${page}`);
   return data;
 };
 
-const getSearch = async (search, page = 1) => {
+const getSearch = async (search, page) => {
   const { data } = await axios.get(
     `/search/movie?language=en-US&page=${page}&include_adult=false&query=${search}`,
   );

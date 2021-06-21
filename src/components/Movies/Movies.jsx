@@ -5,17 +5,27 @@ import Hits from '../Hits/Hits';
 
 function MoviesPage() {
   const [value, setValue] = useState(null);
+  const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
     const query = localStorage.getItem('query');
     setValue(query);
+    const page = localStorage.getItem('pageSearch');
+    if (page) setActivePage(Number(page));
   }, []);
 
   const handlerSubmit = e => {
-    e.preventDefault();
     const query = e.target.lastChild.value.toLowerCase().trim();
     localStorage.setItem('query', query);
     setValue(query);
+    e.preventDefault();
+    localStorage.setItem('pageSearch', 1);
+    setActivePage(1);
+  };
+
+  const handlePageChange = page => {
+    localStorage.setItem('pageSearch', page);
+    setActivePage(page);
   };
 
   return (
@@ -35,7 +45,12 @@ function MoviesPage() {
           />
         </form>
       </header>
-      <Hits flag={false} query={value} />
+      <Hits
+        flag={false}
+        query={value}
+        page={activePage}
+        handlePageChange={handlePageChange}
+      />
     </>
   );
 }

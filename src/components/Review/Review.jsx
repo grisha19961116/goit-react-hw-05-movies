@@ -46,7 +46,6 @@ function Review() {
 
   return (
     <>
-      {' '}
       {data ? (
         <div className={s.review_wrapper}>
           <div className={s.review_block}>
