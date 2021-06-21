@@ -7,7 +7,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const page = localStorage.getItem('pageHome');
-    setActivePage(Number(page));
+    if (page) setActivePage(Number(page));
   }, []);
 
   const handlePageChange = page => {
