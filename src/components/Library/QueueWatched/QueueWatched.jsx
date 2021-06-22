@@ -13,11 +13,11 @@ const QueueWatched = ({ flag }) => {
       try {
         localStorage.setItem('library', path);
         const array = localStorage.getItem(flag);
+        if (!array) return;
         const parsedArray = JSON.parse(array);
         let dataDivided = [];
         let arr = [];
         parsedArray.forEach((el, i) => {
-          console.log(i);
           arr = [...arr, el];
           if (arr.length === 20) {
             dataDivided = [...dataDivided, arr];
@@ -26,24 +26,16 @@ const QueueWatched = ({ flag }) => {
           }
           if (parsedArray.length === i + 1) dataDivided = [...dataDivided, arr];
         });
-        if (array) setData(dataDivided);
+        setData(dataDivided);
+        setActivePage(dataDivided.length);
       } catch (err) {
         console.error(err);
       }
     })();
   }, [flag, path]);
 
-  useEffect(() => {
-    const page = localStorage.getItem('page' + flag);
-    if (page) setActivePage(Number(page));
-  }, [flag]);
+  const handlePageChange = page => setActivePage(page);
 
-  const handlePageChange = page => {
-    localStorage.setItem('page' + flag, page);
-    setActivePage(page);
-  };
-
-  console.log(data);
   return (
     <Hits
       dataLibrary={data}
