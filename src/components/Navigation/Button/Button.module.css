@@ -20,7 +20,9 @@
 }
 
 .navigation_link {
-  display: inline-block;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
   width: 72px;
   text-decoration: none;
   color: rgb(255, 255, 255);
